@@ -4,6 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 import csv
+import pandas as pd
 
 '''
 Red underlines? Install the required packages first: 
@@ -60,10 +61,13 @@ def cafes():
     with open('cafe-data.csv', newline='', encoding='utf-8') as csv_file:
         csv_data = csv.reader(csv_file, delimiter=',')
         list_of_rows = []
+        # cafes = pd.read_csv('./cafe-data.csv')
         for row in csv_data:
             list_of_rows.append(row)
-        print(dict(list_of_rows))
-    return render_template('cafes.html',cafes=list_of_rows, data=dict(list_of_rows))
+        # print(cafes)
+        cafes = pd.DataFrame(list_of_rows)
+        print(cafes)
+    return render_template('cafes.html',cafes=cafes)
 
 
 if __name__ == '__main__':

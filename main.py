@@ -36,6 +36,12 @@ class CafeForm(FlaskForm):
 # use a validator to check that the URL field has a URL entered.
 # ---------------------------------------------------------------------------
 
+class User(Base):
+    __tablename__ = 'users'
+
+    id = Column(Integer, primary_key=True)
+    first_name = Column(Text)
+    last_name = Column(Text, nullable=True)
 
 
 # all Flask routes below
@@ -45,7 +51,7 @@ def home():
 
 
 @app.route('/add')
-def add_cafe():
+def add_cafe():j
     form = CafeForm()
     if form.validate_on_submit():
         print("True")
@@ -57,7 +63,7 @@ def add_cafe():
 
 @app.route('/cafes')
 def cafes():
-    
+    dict_Test = {0: "value1"}
     with open('cafe-data.csv', newline='', encoding='utf-8') as csv_file:
         csv_data = csv.reader(csv_file, delimiter=',')
         list_of_rows = []
@@ -67,7 +73,7 @@ def cafes():
         # print(cafes)
         cafes = pd.DataFrame(list_of_rows)
         print(cafes)
-    return render_template('cafes.html',cafes=cafes)
+    return render_template('cafes.html',cafes=dict_Test)
 
 
 if __name__ == '__main__':

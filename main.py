@@ -22,6 +22,15 @@ This will install the packages from requirements.txt for this project.
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 Bootstrap5(app)
+# https://docs.sqlalchemy.org/en/20/orm/quickstart.html
+
+
+# class User(Base):
+#     __tablename__ = 'users'
+#     id = Column(Integer, primary_key=True)
+#     first_name = Column(Text)
+#     last_name = Column(Text, nullable=True)
+
 
 
 class CafeForm(FlaskForm):
@@ -36,12 +45,7 @@ class CafeForm(FlaskForm):
 # use a validator to check that the URL field has a URL entered.
 # ---------------------------------------------------------------------------
 
-class User(Base):
-    __tablename__ = 'users'
 
-    id = Column(Integer, primary_key=True)
-    first_name = Column(Text)
-    last_name = Column(Text, nullable=True)
 
 
 # all Flask routes below
@@ -51,7 +55,7 @@ def home():
 
 
 @app.route('/add')
-def add_cafe():j
+def add_cafe():
     form = CafeForm()
     if form.validate_on_submit():
         print("True")
@@ -71,9 +75,9 @@ def cafes():
         for row in csv_data:
             list_of_rows.append(row)
         # print(cafes)
-        cafes = pd.DataFrame(list_of_rows)
-        print(cafes)
-    return render_template('cafes.html',cafes=dict_Test)
+        # cafes = pd.DataFrame(list_of_rows)
+        # print(cafes)
+    return render_template('cafes.html',cafes=list_of_rows)
 
 
 if __name__ == '__main__':

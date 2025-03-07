@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% import 'bootstrap5/table.html' as bwtf %}
 {% block title %}Restaurants{% endblock %}
+{% block styles %}
 
+{% endblock %}
 {% block content %}
 
 <div class="container">
@@ -13,14 +15,18 @@
 	  <table class="table table-dark table-striped table-hover">
       {% for i in cafes[0] %}
        
-          
-            <th>{{ i }}</th>
+        <th>{{ i }}</th>
          
-        
       {% endfor %}
-      {{ cafes[1:]}}
 
-
+      {% for ii in cafes[1:] %}
+        <tr>
+          {% for j in ii %}
+            <td>{{ j }}</td>
+        
+          {% endfor %}
+        </tr>
+      {% endfor %}
   	  </table>
 
       <p><a href="#">Return to index page</a></p>
@@ -28,5 +34,8 @@
     </div>
   </div>
 </div>
+
+{% endblock %}
+{% block scripts %}
 
 {% endblock %}

@@ -45,9 +45,6 @@ class CafeForm(FlaskForm):
 # use a validator to check that the URL field has a URL entered.
 # ---------------------------------------------------------------------------
 
-
-
-
 # all Flask routes below
 @app.route("/")
 def home():

@@ -2,7 +2,7 @@ from flask import Flask, render_template
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, URL
 import csv
 import pandas as pd
 
@@ -32,9 +32,14 @@ Bootstrap5(app)
 #     last_name = Column(Text, nullable=True)
 
 
-
 class CafeForm(FlaskForm):
     cafe = StringField('Cafe name', validators=[DataRequired()])
+    url = StringField('url', validators=[DataRequired()])
+    cafe_location = StringField('Cafe Location', validators=[DataRequired(), URL()])
+    opening_times = StringField('Opening Times', validators=[DataRequired()])
+    closing_times = StringField('Closing Times', validators=[DataRequired()])
+    coffee_rating = StringField('Coffee Rating', validators=[DataRequired()])
+    wifi_stregth = StringField('Wifi Strength', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 # Exercise:

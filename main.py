@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired, URL
 import csv
 import pandas as pd
@@ -31,6 +31,11 @@ Bootstrap5(app)
 #     first_name = Column(Text)
 #     last_name = Column(Text, nullable=True)
 
+def csv_data(): 
+    ratings = pd.read_csv('./cafe-data.csv').iloc[:,4:6].to_string(index=False)
+    print(ratings)
+    return ratings
+    h
 
 class CafeForm(FlaskForm):
     cafe = StringField('Cafe name', validators=[DataRequired()])
@@ -38,8 +43,8 @@ class CafeForm(FlaskForm):
     cafe_location = StringField('Cafe Location', validators=[DataRequired(), URL()])
     opening_times = StringField('Opening Times', validators=[DataRequired()])
     closing_times = StringField('Closing Times', validators=[DataRequired()])
-    coffee_rating = StringField('Coffee Rating', validators=[DataRequired()])
-    wifi_stregth = StringField('Wifi Strength', validators=[DataRequired()])
+    coffee_rating = SelectField(u'Coffee Rating', choices=[('cpp', 'C++'), ('py', 'Python'), ('text', 'Plain Text')])
+    wifi_stregth = SelectField(u'WiFi Strength', choices=[('cpp', 'C++'), ('py', 'Python'), ('text', 'Plain Text')])
     submit = SubmitField('Submit')
 
 # Exercise:
@@ -58,6 +63,7 @@ def home():
 
 @app.route('/add')
 def add_cafe():
+    csv_data()
     form = CafeForm()
     if form.validate_on_submit():
         print("True")

@@ -32,23 +32,25 @@ Bootstrap5(app)
 #     last_name = Column(Text, nullable=True)
 
 dataframe = pd.read_csv('./cafe-data.csv', index_col=False)
-ratings = dataframe.iloc[:,4:6].to_string(index=False)
-ratings_coffee = dataframe.iloc[:,4:5].to_dict()
-
-ratings_coffee_list = []
-for key, value in ratings_coffee['Coffee'].items():
-    print(value)
-    ratings_coffee_list.append(value)
+ratings = dataframe.iloc[:,4:6]
+unique = ratings['Coffee'].unique()  # to try unique length. Just unique doesn't work.
 
 
-print(ratings_coffee_list)
+# ratings_coffee = dataframe.iloc[:,4:5].to_dict() # worse version of unique
+# ratings_coffee_list = []
+# for key, value in ratings_coffee['Coffee'].items():
+#     print(value)
+#     ratings_coffee_list.append(value)
+
+print(unique)
+
 class CafeForm(FlaskForm):
     cafe = StringField('Cafe name', validators=[DataRequired()])
     url = StringField('url', validators=[DataRequired()])
     cafe_location = StringField('Cafe Location', validators=[DataRequired(), URL()])
     opening_times = StringField('Opening Times', validators=[DataRequired()])
     closing_times = StringField('Closing Times', validators=[DataRequired()])
-    coffee_rating = SelectField(u'Coffee Rating', choices=[(ratings_coffee)])
+    coffee_rating = SelectField(u'Coffee Rating', choices=[i for i in unique])
     wifi_stregth = SelectField(u'WiFi Strength', choices=[('cpp', 'C++'), ('py', 'Python'), ('text', 'Plain Text')])
     submit = SubmitField('Submit')
 

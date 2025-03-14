@@ -33,7 +33,8 @@ Bootstrap5(app)
 
 dataframe = pd.read_csv('./cafe-data.csv', index_col=False)
 ratings = dataframe.iloc[:,4:6]
-unique = ratings['Coffee'].unique()  # to try unique length. Just unique doesn't work.
+unique = pd.unique(ratings['Coffee'])  # to try unique length. Just unique doesn't work.
+
 
 
 # ratings_coffee = dataframe.iloc[:,4:5].to_dict() # worse version of unique
@@ -51,7 +52,7 @@ class CafeForm(FlaskForm):
     opening_times = StringField('Opening Times', validators=[DataRequired()])
     closing_times = StringField('Closing Times', validators=[DataRequired()])
     coffee_rating = SelectField(u'Coffee Rating', choices=[i for i in unique])
-    wifi_stregth = SelectField(u'WiFi Strength', choices=[('cpp', 'C++'), ('py', 'Python'), ('text', 'Plain Text')])
+    wifi_stregth = SelectField(u'WiFi Strength', choices=["💪","💪💪","💪💪💪","💪💪💪💪"])
     submit = SubmitField('Submit')
 
 # Exercise:

@@ -47,12 +47,13 @@ print(unique)
 
 class CafeForm(FlaskForm):
     cafe = StringField('Cafe name', validators=[DataRequired()])
-    url = StringField('url', validators=[DataRequired()])
-    cafe_location = StringField('Cafe Location', validators=[DataRequired(), URL()])
+    url = StringField('url', validators=[DataRequired(), URL()])
+    cafe_location = StringField('Cafe Location', validators=[DataRequired()])
     opening_times = StringField('Opening Times', validators=[DataRequired()])
     closing_times = StringField('Closing Times', validators=[DataRequired()])
     coffee_rating = SelectField(u'Coffee Rating', choices=[i for i in unique])
     wifi_stregth = SelectField(u'WiFi Strength', choices=["💪","💪💪","💪💪💪","💪💪💪💪"])
+    power = SelectField(u'WiFi Strength', choices=["🔌","🔌🔌","🔌🔌🔌","🔌🔌🔌🔌"])
     submit = SubmitField('Submit')
 
 # Exercise:
@@ -69,12 +70,15 @@ def home():
     return render_template("index.html")
 
 
-@app.route('/add')
+@app.route('/add', methods=['GET', 'POST'])
 def add_cafe(): 
     form = CafeForm()
     if form.validate_on_submit():
-        print("True")
-    # Exercise:
+        print('True')
+        print(form.wifi_stregth.data, form.cafe.data)
+        with open('./cafe-data.csv', mode="a", encoding="utf-8") as file:
+            file.write(f"\n{form.cafe.data},{form.url.data},{form.cafe_location.data},{form.opening_times.data},{form.closing_times.data}, {form.coffee_rating.data},{form.wifi_stregth.data},{form.power.data}")
+            
     # Make the form write a new row into cafe-data.csv
     # with   if form.validate_on_submit()
     return render_template('add.html', form=form)

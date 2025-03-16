@@ -31,7 +31,7 @@ Bootstrap5(app)
 #     first_name = Column(Text)
 #     last_name = Column(Text, nullable=True)
 
-dataframe = pd.read_csv('./cafe-data.csv', index_col=False)
+dataframe = pd.read_csv('./cafe-data.csv', index_col=False, on_bad_lines="skip") #on_bad_lines="skip" to fix the error
 ratings = dataframe.iloc[:,4:6]
 unique = pd.unique(ratings['Coffee'])  # to try unique length. Just unique doesn't work.
 
@@ -47,8 +47,7 @@ print(unique)
 
 class CafeForm(FlaskForm):
     cafe = StringField('Cafe name', validators=[DataRequired()])
-    url = StringField('url', validators=[DataRequired(), URL()])
-    cafe_location = StringField('Cafe Location', validators=[DataRequired()])
+    url = StringField('Cafe Location', validators=[DataRequired(), URL()])
     opening_times = StringField('Opening Times', validators=[DataRequired()])
     closing_times = StringField('Closing Times', validators=[DataRequired()])
     coffee_rating = SelectField(u'Coffee Rating', choices=[i for i in unique])
@@ -77,7 +76,7 @@ def add_cafe():
         print('True')
         print(form.wifi_stregth.data, form.cafe.data)
         with open('./cafe-data.csv', mode="a", encoding="utf-8") as file:
-            file.write(f"\n{form.cafe.data},{form.url.data},{form.cafe_location.data},{form.opening_times.data},{form.closing_times.data}, {form.coffee_rating.data},{form.wifi_stregth.data},{form.power.data}")
+            file.write(f"\n{form.cafe.data},{form.url.data},{form.opening_times.data},{form.closing_times.data}, {form.coffee_rating.data},{form.wifi_stregth.data},{form.power.data}")
             
     # Make the form write a new row into cafe-data.csv
     # with   if form.validate_on_submit()

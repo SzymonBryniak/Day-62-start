@@ -1,9 +1,12 @@
-{% extends 'base.html' %}
 {% import 'bootstrap5/form.html' as bwtf %}
+{% extends 'base.html' %}
 <!--Don't forget your import here-->
 {% block title %}Add A New Cafe{% endblock %}
 
 {% block content %}
+
+<link href="{{ url_for('static', filename='../static/css/styles.css') }}" rel="stylesheet">
+
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-md-8">
@@ -13,7 +16,7 @@
       {{ bwtf.render_form(form) }}
       <!-- This is where your WTForm will go -->
 
-	  <p class="space-above"><a href="#">See all cafes</a></p>
+	  <p class="space-above"><a href="{{url_for('cafes')}}">See all cafes</a></p>
 
     </div>
   </div>

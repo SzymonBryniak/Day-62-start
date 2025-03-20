@@ -85,7 +85,6 @@ def add_cafe():
 
 @app.route('/cafes')
 def cafes():
-    dict_Test = {0: "value1"}
     with open('cafe-data.csv', newline='', encoding='utf-8') as csv_file:
         csv_data = csv.reader(csv_file, delimiter=',')
         list_of_rows = []

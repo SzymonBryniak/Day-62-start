@@ -9,7 +9,7 @@
 
       <h1>All Cafes</h1>
       
-	  <table class="table1 border-top">
+	  <table class="table table-dark">
       <thead>
         <tr>
         {% for i in cafes[0] %}
@@ -21,10 +21,10 @@
       </thead>
     <tbody>
         {% for ii in cafes[1:] %}
-          <tr class="table1 border-top">
+          <tr class="border-top">
             {% for j in ii %}
               {% if ii.index(j) == 1 %}
-                <td><a class="link-offset-2 link-underline-opacity-100-hover" href="{{ j }}"> Maps Link </a> </td>
+                <td><a class="link-danger link-offset-2 link-underline-opacity-0" href="{{ j }}"> Maps Link </a> </td>
 
                     {% else %}
                   <td>{{ j }}</td>
